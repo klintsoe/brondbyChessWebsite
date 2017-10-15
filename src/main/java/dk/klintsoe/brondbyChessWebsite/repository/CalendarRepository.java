@@ -11,5 +11,6 @@ import java.util.List;
 public interface CalendarRepository extends JpaRepository<ChessCalender, Integer> {
 
     List<ChessCalender> findBySeason(String season);
+    ChessCalender findOneBySeason(String season);
 
 }
