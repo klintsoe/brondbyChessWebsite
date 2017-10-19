@@ -22,3 +22,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+/logs/
+src/main/java/dk/klintsoe/brondbyChessWebsite/businessService/
+src/test/resources/

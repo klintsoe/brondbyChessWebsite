@@ -23,7 +23,7 @@ public class ChessCalender {
 
     public ChessCalender(String season, List<ChessCalendarEntry> list) {
         this.season = season;
-        entryList = new ArrayList();
+        entryList = new ArrayList<>();
         if(list != null) {
             list.stream().forEach(chess -> addCalendarEntry(chess));
         }
@@ -34,7 +34,7 @@ public class ChessCalender {
         return entryList;
     }
 
-    public void addCalendarEntry(ChessCalendarEntry chessCalendarEntry) {
+    private void addCalendarEntry(ChessCalendarEntry chessCalendarEntry) {
         chessCalendarEntry.setChessCalender(this);
         this.entryList.add(chessCalendarEntry);
     }

@@ -1,5 +1,7 @@
 package dk.klintsoe.brondbyChessWebsite.restController;
 
+import dk.klintsoe.brondbyChessWebsite.config.log.LogFactory;
+import dk.klintsoe.brondbyChessWebsite.config.log.TimerLog;
 import dk.klintsoe.brondbyChessWebsite.model.calendar.ChessCalender;
 import dk.klintsoe.brondbyChessWebsite.repository.CalendarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,25 @@ import java.util.List;
 @RequestMapping(value = "/calendar")
 public class CalendarController {
 
+
+    private TimerLog timerLog = LogFactory.getTimerLog();
+    private CalendarRepository calendarRepository;
+
     @Autowired
-    CalendarRepository calendarRepository;
+    public CalendarController(CalendarRepository calendarRepository) {
+        this.calendarRepository = calendarRepository;
+    }
 
     @RequestMapping(value={"/{seasonIdent}"}, method= RequestMethod.GET)
     public List<ChessCalender> getFullCalendar(@PathVariable(value="seasonIdent") final String seasonIdent) {
+
+        timerLog.start("CC:" + seasonIdent);
+
+        timerLog.mark("start");
+
         List<ChessCalender> chessCalenderList = calendarRepository.findBySeason(seasonIdent);
+
+        timerLog.stopTimer("slut");
         return chessCalenderList;
     }
 

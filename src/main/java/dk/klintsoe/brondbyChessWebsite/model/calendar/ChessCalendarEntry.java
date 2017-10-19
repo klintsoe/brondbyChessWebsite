@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Table(name = "Chess_Calendar_Entry")
 public class ChessCalendarEntry {
 
-    public enum ColorType {blue, green, noColor};
+    public enum ColorType {blue, green, noColor}
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
