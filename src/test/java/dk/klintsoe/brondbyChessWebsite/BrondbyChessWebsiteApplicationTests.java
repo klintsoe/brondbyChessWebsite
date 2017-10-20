@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -26,7 +27,7 @@ public class BrondbyChessWebsiteApplicationTests {
         this.mockMvc.perform(get("/")).andDo(print())
                 .andExpect(status().isOk())
         //.andExpect(jsonPath("$.name").value("Søren"))
-        //	.andExpect(jsonPath("$.playerId").value("1"))
+        	.andExpect(jsonPath("$.playerId").value("1"))
         ;
     }
 }

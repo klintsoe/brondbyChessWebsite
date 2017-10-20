@@ -16,8 +16,6 @@ import java.util.List;
 @RequestMapping(value = "/calendar")
 public class CalendarController {
 
-
-    private TimerLog timerLog = LogFactory.getTimerLog();
     private CalendarRepository calendarRepository;
 
     @Autowired
@@ -26,13 +24,14 @@ public class CalendarController {
     }
 
     @RequestMapping(value={"/{seasonIdent}"}, method= RequestMethod.GET)
-    public List<ChessCalender> getFullCalendar(@PathVariable(value="seasonIdent") final String seasonIdent) {
+    public ChessCalender getFullCalendar(@PathVariable(value="seasonIdent") final String seasonIdent) {
+        TimerLog timerLog = LogFactory.getTimerLog();
 
         timerLog.start("CC:" + seasonIdent);
 
-        timerLog.mark("start");
+        timerLog.mark("del1");
 
-        List<ChessCalender> chessCalenderList = calendarRepository.findBySeason(seasonIdent);
+        ChessCalender chessCalenderList = calendarRepository.findOneBySeason(seasonIdent);
 
         timerLog.stopTimer("slut");
         return chessCalenderList;
