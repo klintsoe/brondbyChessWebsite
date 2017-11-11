@@ -6,3 +6,4 @@ public class LogFactory {
         return new TimerLog();
     }
 }
+
