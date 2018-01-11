@@ -2,6 +2,8 @@ package dk.klintsoe.brondbyChessWebsite.restController;
 
 import dk.klintsoe.brondbyChessWebsite.config.log.LogFactory;
 import dk.klintsoe.brondbyChessWebsite.config.log.TimerLog;
+import dk.klintsoe.brondbyChessWebsite.model.JsonLink;
+import dk.klintsoe.brondbyChessWebsite.model.JsonResponse;
 import dk.klintsoe.brondbyChessWebsite.model.calendar.ChessCalender;
 import dk.klintsoe.brondbyChessWebsite.repository.CalendarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,7 +27,7 @@ public class CalendarController {
     }
 
     @RequestMapping(value={"/{seasonIdent}"}, method= RequestMethod.GET)
-    public ChessCalender getFullCalendar(@PathVariable(value="seasonIdent") final String seasonIdent) {
+    public JsonResponse getFullCalendar(@PathVariable(value="seasonIdent") final String seasonIdent) {
         TimerLog timerLog = LogFactory.getTimerLog();
 
         timerLog.start("CC:" + seasonIdent);
@@ -33,8 +36,10 @@ public class CalendarController {
 
         ChessCalender chessCalenderList = calendarRepository.findOneBySeason(seasonIdent);
 
+        JsonResponse jsonResponse = new JsonResponse(chessCalenderList);
+
         timerLog.stopTimer("slut");
-        return chessCalenderList;
+        return jsonResponse;
     }
 
 
