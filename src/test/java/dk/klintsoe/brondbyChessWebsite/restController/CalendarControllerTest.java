@@ -30,11 +30,11 @@ public class CalendarControllerTest {
     private MockMvc mockMvc;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test
@@ -42,7 +42,7 @@ public class CalendarControllerTest {
 
         this.mockMvc.perform(get("/calendar/2000")).andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("[]")))
+                .andExpect(content().string(containsString("{\"content\":null}")))
         //.andExpect(jsonPath("$.name").value("Søren"))
         //	.andExpect(jsonPath("$.playerId").value("1"))
         ;
@@ -53,9 +53,14 @@ public class CalendarControllerTest {
     public void get2016Calendar() throws Exception {
 
         this.mockMvc.perform(get("/calendar/2016-2017"))
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+                .andExpect(MockMvcResultMatchers.content().contentType("application/hal+json;charset=UTF-8"))
                 .andExpect(status().isOk())
-            	.andExpect(jsonPath("$.season").value("2016-2017"))
+            	.andExpect(jsonPath("content.season").value("2016-2017"))
+                .andExpect(jsonPath("content.entryList").isArray())
+                .andExpect(jsonPath("content.entryList[0].id").isNumber())
+                .andExpect(jsonPath("content.entryList[0].id").value("27"))
+
+
                 .andDo(print())
         ;
 

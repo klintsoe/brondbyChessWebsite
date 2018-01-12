@@ -22,12 +22,12 @@ public class BrondbyChessWebsiteApplicationTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    public void testOne() throws Exception {
-        this.mockMvc.perform(get("/")).andDo(print())
-                .andExpect(status().isOk())
-        //.andExpect(jsonPath("$.name").value("Søren"))
-        	.andExpect(jsonPath("$.playerId").value("1"))
-        ;
-    }
+//    @Test
+//    public void testOne() throws Exception {
+//        this.mockMvc.perform(get("/")).andDo(print())
+//                .andExpect(status().isOk())
+//        //.andExpect(jsonPath("$.name").value("Søren"))
+//        	.andExpect(jsonPath("$.playerId").value("1"))
+//        ;
+//    }
 }

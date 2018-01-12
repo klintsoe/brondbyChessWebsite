@@ -25,16 +25,18 @@ public class CalendarData implements CommandLineRunner {
 
     @Override
     @Transactional
-    public void run(String... strings) throws Exception {
+    public void run(String... strings)  {
 
         System.out.println("Running Commands");
 
         List<ChessCalendarEntry> list = new ArrayList<>();
-        list.add(new ChessCalendarEntry(LocalDate.of(2017, 3, 11), "Opstart", ChessCalendarEntry.ColorType.noColor, 0));
-        list.add(new ChessCalendarEntry(LocalDate.of(2017, 5, 2), "Opstart", ChessCalendarEntry.ColorType.noColor, 0));
-        list.add(new ChessCalendarEntry(LocalDate.of(2018, 12, 3), "Opstart", ChessCalendarEntry.ColorType.noColor, 0));
-        list.add(new ChessCalendarEntry(LocalDate.of(2018, 11, 14), "Opstart", ChessCalendarEntry.ColorType.noColor, 0));
-
+        list.add(new ChessCalendarEntry(LocalDate.of(2017, 8, 14), "Hyggeturnering", ChessCalendarEntry.ColorType.noColor, 0));
+        list.add(new ChessCalendarEntry(LocalDate.of(2017, 8, 21), "Hyggeturnering", ChessCalendarEntry.ColorType.noColor, 0));
+        list.add(new ChessCalendarEntry(LocalDate.of(2017, 8, 28), "Hyggeturnering", ChessCalendarEntry.ColorType.noColor, 0));
+        list.add(new ChessCalendarEntry(LocalDate.of(2017, 9, 4), "Hyggeturnering", ChessCalendarEntry.ColorType.noColor, 0));
+        list.add(new ChessCalendarEntry(LocalDate.of(2017, 9, 11), "Generalforsamling", ChessCalendarEntry.ColorType.red, 0));
+        list.add(new ChessCalendarEntry(LocalDate.of(2017, 9, 18), "Vinterturnering 1", ChessCalendarEntry.ColorType.red, 0));
+        list.add(new ChessCalendarEntry(LocalDate.of(2017, 9, 25), "Vinterturnering 2", ChessCalendarEntry.ColorType.red, 0));
         ChessCalender chessCalender1718 = new ChessCalender("2017-2018", list);
 
 
@@ -53,4 +55,5 @@ public class CalendarData implements CommandLineRunner {
 
 
     }
+
 }
