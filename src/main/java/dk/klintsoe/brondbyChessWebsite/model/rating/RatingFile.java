@@ -16,12 +16,24 @@ public class RatingFile {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-    private File ratingFile;
+    @Lob
+    private byte[] ratingFile;
+
+    private String filename;
+
+    private String md5sum;
+
     private LocalDate downloadedDate;
 
-    public RatingFile(File ratingFile, LocalDate downloadedDate) {
+    public RatingFile() {
+      }
+
+
+    public RatingFile(byte[] ratingFile, String filename, String md5Sum, LocalDate downloadedDate) {
         this.ratingFile = ratingFile;
         this.downloadedDate = downloadedDate;
+        this.md5sum = md5Sum;
+        this.filename = filename;
     }
 
     public int getId() {
@@ -32,11 +44,11 @@ public class RatingFile {
         this.id = id;
     }
 
-    public File getRatingFile() {
+    public byte[] getRatingFile() {
         return ratingFile;
     }
 
-    public void setRatingFile(File ratingFile) {
+    public void setRatingFile(byte[] ratingFile) {
         this.ratingFile = ratingFile;
     }
 
@@ -46,5 +58,21 @@ public class RatingFile {
 
     public void setDownloadedDate(LocalDate downloadedDate) {
         this.downloadedDate = downloadedDate;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public String getMd5sum() {
+        return md5sum;
+    }
+
+    public void setMd5sum(String md5sum) {
+        this.md5sum = md5sum;
     }
 }

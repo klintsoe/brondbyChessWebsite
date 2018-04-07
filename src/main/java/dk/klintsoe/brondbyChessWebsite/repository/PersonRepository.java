@@ -11,6 +11,6 @@ import java.util.Date;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
-    Person findByDsuId(int dsuId);
+    Person findByDsuNummer(int dsuNummer);
 
 }

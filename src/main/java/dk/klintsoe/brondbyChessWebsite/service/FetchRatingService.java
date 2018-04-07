@@ -18,17 +18,19 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class FetchRatingService {
 
     @Autowired
-    public FetchRatingService(RatingFileRepository ratingFileRepository, PersonRepository personRepository) {
+    public FetchRatingService(RatingFileRepository ratingFileRepository, PersonRepository personRepository, FileReaderService fileReaderService) {
         this.ratingFileRepository = ratingFileRepository;
         this.personRepository = personRepository;
+        this.fileReaderService = fileReaderService;
     }
 
     private RatingFileRepository ratingFileRepository;
     private PersonRepository personRepository;
+    private FileReaderService fileReaderService;
 
 
 //    private final String ratingUrl = "http://turnering.skak.dk/ClubAndMembers/ClubMemberReport/10?format=csv";
@@ -36,35 +38,32 @@ public class FetchRatingService {
     public void updateRatingTable(String ratingUrl) {
 
         try {
-            File downloadfile = getRatingFileByUrl(ratingUrl);
-            RatingFile ratingFile = new RatingFile(downloadfile, LocalDate.now());
-            ratingFileRepository.save(ratingFile);
+            RatingFile ratingFile = fileReaderService.getRatingFileByUrl(ratingUrl, LocalDate.now());
 
-            List<Person> personList = conventRatingFile(ratingFile);
-            personRepository.save(personList);
+            List<RatingFile> sortedRatingFileList = ratingFileRepository.findByMaxDownloadedDate();
 
+            if(sortedRatingFileList.isEmpty() ||
+                    !sortedRatingFileList.get(0).
+                            getMd5sum().equals(
+                                    ratingFile.getMd5sum())) {
+               ratingFileRepository.save(ratingFile);
+            }
         } catch (Exception e) {
+            System.out.println("Unable to locate new rating file:" + e);
+            e.printStackTrace();
+        }}
 
-        }
-    }
-
-    private File getRatingFileByUrl(String ratingUrl) throws Exception {
-        UrlResource urlResource = new UrlResource(ratingUrl);
-        File ratingFile = urlResource.getFile();
-        return ratingFile;
-    }
 
     private List<Person> conventRatingFile(RatingFile ratingFile) throws Exception {
         ArrayList<Person> arrayList = new ArrayList<>();
 
-        File file = ratingFile.getRatingFile();
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-
-        bufferedReader.lines().
-                filter(x -> !"\"\"".equals(x)).
-                filter(x -> !"\"Nummer\"".equals(x.substring(0,8))).
-                forEach(s -> arrayList.add(string2Person(s)));
-
+//        byte[] file = ratingFile.getRatingFile();
+//        BufferedReader bufferedReader = new BufferedReader(new ByteReader(file));
+//
+//        bufferedReader.lines().
+//                filter(x -> !"\"\"".equals(x)).
+//                filter(x -> !"\"Nummer\"".equals(x.substring(0,8))).
+//                forEach(s -> arrayList.add(string2Person(s)));
 
         return arrayList;
     }
@@ -76,7 +75,7 @@ public class FetchRatingService {
         String[] stringArray = dataString.split(";");
 
         String dsuNumberString = stringArray[0];
-        Person person = personRepository.findByDsuId(Integer.getInteger(removePling(dsuNumberString)));
+        Person person = personRepository.findByDsuNummer(Integer.getInteger(removePling(dsuNumberString)));
 
         if (person == null) {
            person = createPerson(stringArray);
