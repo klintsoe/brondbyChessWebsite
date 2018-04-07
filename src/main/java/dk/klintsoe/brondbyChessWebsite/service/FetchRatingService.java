@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +34,10 @@ public class FetchRatingService {
     private FileReaderService fileReaderService;
 
 
+
 //    private final String ratingUrl = "http://turnering.skak.dk/ClubAndMembers/ClubMemberReport/10?format=csv";
 
-    public void updateRatingTable(String ratingUrl) {
+    public void updateRatingTable(URL ratingUrl) {
 
         try {
             RatingFile ratingFile = fileReaderService.getRatingFileByUrl(ratingUrl, LocalDate.now());

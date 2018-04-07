@@ -11,6 +11,8 @@ import java.util.Date;
 @Table(name = "RatingFile")
 public class RatingFile {
 
+    enum FileStatus {added, updated};
+
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -25,6 +27,8 @@ public class RatingFile {
 
     private LocalDate downloadedDate;
 
+    private FileStatus fileStatus;
+
     public RatingFile() {
       }
 
@@ -34,6 +38,7 @@ public class RatingFile {
         this.downloadedDate = downloadedDate;
         this.md5sum = md5Sum;
         this.filename = filename;
+        this.fileStatus = FileStatus.added;
     }
 
     public int getId() {
@@ -74,5 +79,13 @@ public class RatingFile {
 
     public void setMd5sum(String md5sum) {
         this.md5sum = md5sum;
+    }
+
+    public FileStatus getFileStatus() {
+        return fileStatus;
+    }
+
+    public void setFileStatus(FileStatus fileStatus) {
+        this.fileStatus = fileStatus;
     }
 }

@@ -10,6 +10,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import static org.junit.Assert.*;
 
 
@@ -35,18 +38,28 @@ public class FetchRatingServiceTest {
     @Test
     public void updateRatingTable() {
 
-        String url2 = "classpath:/ratingFiles/medlemmer.csv";
+        String url2 = "ratingFiles/medlemmer.csv";
         String url ="http://turnering.skak.dk/ClubAndMembers/ClubMemberReport/10?format=csv";
 
         assertTrue("number is not zero", ratingFileRepository.count() == 0);
 
-        fetchRatingService.updateRatingTable(url);
+        try {
+            URL    urlll = new URL(url);
+            fetchRatingService.updateRatingTable(urlll);
+
+
 
         assertTrue("number is not One", ratingFileRepository.count() == 1);
 
-        fetchRatingService.updateRatingTable(url);
+            URL    url22 =  getClass().getClassLoader().getResource(url2);
+            fetchRatingService.updateRatingTable(url22);
 
-        assertTrue("number is not One", ratingFileRepository.count() == 1);
+        assertTrue("number is not two", ratingFileRepository.count() == 2);
 
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 }

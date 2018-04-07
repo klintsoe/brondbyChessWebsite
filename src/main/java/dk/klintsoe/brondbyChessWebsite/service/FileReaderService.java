@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.io.*;
+import java.net.URL;
 import java.time.LocalDate;
 
 @Service
 public class FileReaderService {
 
-    public RatingFile getRatingFileByUrl(String ratingUrl, LocalDate date) throws Exception {
+    public RatingFile getRatingFileByUrl(URL ratingUrl, LocalDate date) throws Exception {
         UrlResource urlResource =  new UrlResource(ratingUrl);
         String filename = urlResource.getFilename();
 
