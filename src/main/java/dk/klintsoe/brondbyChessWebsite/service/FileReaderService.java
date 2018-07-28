@@ -1,12 +1,10 @@
 package dk.klintsoe.brondbyChessWebsite.service;
 
-import dk.klintsoe.brondbyChessWebsite.model.rating.RatingFile;
-import org.apache.logging.log4j.core.util.IOUtils;
+import dk.klintsoe.brondbyChessWebsite.model.files.RatingFile;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 

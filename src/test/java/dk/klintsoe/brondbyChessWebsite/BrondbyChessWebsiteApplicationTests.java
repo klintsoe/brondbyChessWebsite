@@ -22,6 +22,11 @@ public class BrondbyChessWebsiteApplicationTests {
     @Autowired
     private MockMvc mockMvc;
 
+    @Test
+    public void testTest() {
+
+    }
+
 //    @Test
 //    public void testOne() throws Exception {
 //        this.mockMvc.perform(get("/")).andDo(print())

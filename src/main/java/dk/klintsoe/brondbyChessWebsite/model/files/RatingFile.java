@@ -1,4 +1,4 @@
-package dk.klintsoe.brondbyChessWebsite.model.rating;
+package dk.klintsoe.brondbyChessWebsite.model.files;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

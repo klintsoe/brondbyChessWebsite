@@ -51,10 +51,10 @@ public class FetchRatingServiceTest {
 
         assertTrue("number is not One", ratingFileRepository.count() == 1);
 
-            URL    url22 =  getClass().getClassLoader().getResource(url2);
-            fetchRatingService.updateRatingTable(url22);
+            URL    urlll2 = new URL(url);
+            fetchRatingService.updateRatingTable(urlll2);
 
-        assertTrue("number is not two", ratingFileRepository.count() == 2);
+        assertTrue("number is not two", ratingFileRepository.count() == 1);
 
 
         } catch (Exception e) {
